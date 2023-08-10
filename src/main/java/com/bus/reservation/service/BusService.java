@@ -9,7 +9,7 @@ public interface BusService {
 	 Bus createBus(BusDTO busDTO);				// 버스 생성
 	 List<BusDTO> getBusList();			    // 버스 리스트
      BusDTO getBusById(Integer busNo);			// 버스 한 개 가져오는 함수(상세보기)
-     Bus updateBus(Bus bus);				// 버스 수정하는 함수
+     Bus updateBus(BusDTO busDTO);				// 버스 수정하는 함수
      Boolean deleteBus(Integer busNo);		// 버스 삭제하는 함수
      
      /*

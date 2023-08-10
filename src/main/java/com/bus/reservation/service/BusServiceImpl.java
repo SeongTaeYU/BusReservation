@@ -68,19 +68,32 @@ public class BusServiceImpl implements BusService{
      * 버스 수정하는 함수
      */
     @Override
-    public Bus updateBus(Bus bus) {
+    public Bus updateBus(BusDTO busDTO) {
         // BusDao를 사용하여 데이터베이스에서 버스 업데이트 로직 수행
-    	return busDao.updateBus(bus);
+    	Optional<Bus> data = busRepository.findById(busDTO.getBusNo());
+    	if(data.isPresent()) {
+    		Bus targetEntity = data.get();
+    		targetEntity.setBusDriver(busDTO.getBusDriver());
+    		targetEntity.setBusNumber(busDTO.getBusNumber());
+    		targetEntity.setBusCompany(busDTO.getBusCompany());
+    		
+    		return busRepository.save(targetEntity);
+    	}
+    	return null;
     }
     
     /*
      * 버스 삭제하는 함수
      */
     @Override
-    public Boolean deleteBus(Integer busId) {
+    public Boolean deleteBus(Integer busNo) {
         // BusDao를 사용하여 데이터베이스에서 버스 삭제 로직 수행
-    	return busDao.deleteBus(busId);
+    	Optional<Bus> data = busRepository.findById(busNo);
+    	if(data.isPresent()) {
+    		busRepository.delete(data.get());
+    		return true;
+    	}
+    	return false;
     }
     
-   
 }
