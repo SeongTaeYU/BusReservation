@@ -2,8 +2,8 @@ package com.bus.reservation.dto;
 
 import java.time.LocalDateTime;
 
-import groovy.transform.builder.Builder;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -21,7 +21,7 @@ public class BusDTO {
 	
     private String busCompany;
 	
-    private Integer seatCount;
+    private String seatCount;
     
     private LocalDateTime regDate;
 	private LocalDateTime modDate;

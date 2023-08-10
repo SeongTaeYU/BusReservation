@@ -19,13 +19,13 @@ public class ReservationDTO {
     private Date reservationTime;
 	
     private Integer userNo;
-    private Integer busName;
+    private String busName;
 	
     private Integer busNo;
     private String busNumber;
 	
     private Integer seatNo;
-    private Integer seatNumber;
+    private String seatNumber;
 	
     private Integer routeNo;
     private String origin;
