@@ -7,11 +7,11 @@ import com.bus.reservation.entity.Route;
 
 
 public interface RouteService {
-    Route createRoute(Route route);				// 경로 생성
-    List<Route> getRouteList();					// 경로 리스트
-    Route getRouteById(Integer routeId);		// 경로 한 개 가져오는 함수(상세보기)
-    Route updateRoute(Route route);				// 경로 수정하는 함수
-    Boolean deleteRoute(Integer routeId);		// 경로 삭제하는 함수
+    Route createRoute(RouteDTO routeDTO);		// 경로 생성
+    List<RouteDTO> getRouteList();				// 경로 리스트
+    RouteDTO getRouteByNo(Integer routeNo);		// 경로 한 개 가져오는 함수(상세보기)
+    Route updateRoute(RouteDTO routeDTO);				// 경로 수정하는 함수
+    Boolean deleteRoute(Integer routeNo);		// 경로 삭제하는 함수
     
     /*
      * DTO --> Entity 전환을 위한 default 메소드

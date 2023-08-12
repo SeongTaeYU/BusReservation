@@ -20,6 +20,9 @@ public class UserDTO {
 
 	private Integer userNo;
 	
+	@NotBlank(message = "아이디를 입려하세요.")
+	private String userId;
+	
 	@NotBlank(message = "이름을 입력하세요.")
 	@Size(min = 1, max = 14, message = "이름(닉네임)은 1~14자로 이내로 입력하세요.")
     private String userName;

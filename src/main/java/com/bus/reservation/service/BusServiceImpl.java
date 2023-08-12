@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.bus.reservation.dto.BusDTO;
@@ -53,7 +52,7 @@ public class BusServiceImpl implements BusService{
      * 버스 한 개 가져오는 함수(상세보기)
      */
     @Override
-    public BusDTO getBusById(Integer busNo) {
+    public BusDTO getBusByNo(Integer busNo) {
     	// BusDao를 사용하여 데이터베이스로부터 버스 정보 조회 로직 수행
     	Optional<Bus> bus = busRepository.findById(busNo);
     	@SuppressWarnings("unused")

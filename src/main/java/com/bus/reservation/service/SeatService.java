@@ -8,13 +8,13 @@ import com.bus.reservation.entity.Seat;
 
 public interface SeatService {
 	
-    Seat createSeat(Seat seat);					// 좌석 생성
-    List<Seat> getSeatList();					// 좌석 리스
-    Seat getSeatById(Integer seatId);			// 좌석 한 개 가져오는 함수(상세보기)
-    Seat updateSeat(Seat seat);					// 좌석 수정하는 함수
-    Boolean deleteSeat(Integer seatId);			// 좌석 삭제하는 함수
+    Seat createSeat(SeatDTO seatDTO);			// 좌석 생성
+    List<SeatDTO> getSeatList();				// 좌석 리스
+    SeatDTO getSeatByNo(Integer seatNo);		// 좌석 한 개 가져오는 함수(상세보기)
+    Seat updateSeat(SeatDTO seatDTO);			// 좌석 수정하는 함수
+    Boolean deleteSeat(Integer seatNo);			// 좌석 삭제하는 함수
     
-    Seat getSeatByBusId(Integer busId);			// 해당 버스의 좌석 정보 조회 함수
+    //SeatDTO getSeatByBusNo(Integer busNo);			// 해당 버스의 좌석 정보 조회 함수
     
     /*
      * DTO --> Entity 전환을 위한 default 메소드

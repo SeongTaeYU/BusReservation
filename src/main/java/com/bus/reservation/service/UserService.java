@@ -6,14 +6,14 @@ import com.bus.reservation.dto.UserDTO;
 import com.bus.reservation.entity.User;
 
 public interface UserService {
-    User createUser(User user);					// 사용자 생성
-    List<User> getUserList();					// 사용자 리스트
-    User getUserById(Integer userId);			// 사용자 한 명 가져오는 함수(상세보기)
-    User updateUser(User user);					// 사용자 수정하는 함수
-    Boolean deleteUser(Integer userId);			// 사용자 삭제하는 함수
+    User createUser(UserDTO userDTO);			// 사용자 생성
+    List<UserDTO> getUserList();				// 사용자 리스트
+    UserDTO getUserByNo(Integer userNo);		// 사용자 한 명 가져오는 함수(상세보기)
+    User updateUser(UserDTO userDTO);			// 사용자 수정하는 함수
+    Boolean deleteUser(Integer userNo);			// 사용자 삭제하는 함수
     
-    User login(User user);						// 사용자 로그인
-    Boolean idExist(String userName);			// 사용자 로그인
+    User login(UserDTO userDTO);				// 사용자 로그인
+    Boolean idExist(String userId);				// 사용자 로그인
     
     /*
      * DTO --> Entity 전환을 위한 default 메소드
@@ -22,6 +22,7 @@ public interface UserService {
     	
     	User userEntity = User.builder()
     						  .userNo(userDto.getUserNo())
+    						  .userId(userDto.getUserId())
     						  .userName(userDto.getUserName())
     						  .password(userDto.getPassword())
     						  .email(userDto.getEmail())
@@ -39,6 +40,7 @@ public interface UserService {
     	
     	UserDTO userDto = UserDTO.builder()
     							 .userNo(userEntity.getUserNo())
+    							 .userId(userEntity.getUserId())
     							 .userName(userEntity.getUserName())
     							 .password(userEntity.getPassword())
     							 .email(userEntity.getEmail())

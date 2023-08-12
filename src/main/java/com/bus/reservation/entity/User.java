@@ -33,6 +33,9 @@ public class User extends BaseEntityWithTimeStamps{
     private Integer userNo;
 	
 	@Column(nullable = false)
+	private String userId;
+	
+	@Column(nullable = false)
     private String userName;
 	
 	@Column(nullable = false)

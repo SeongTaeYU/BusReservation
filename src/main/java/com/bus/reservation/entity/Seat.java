@@ -45,5 +45,7 @@ public class Seat extends BaseEntityWithTimeStamps{
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "bus_no")
     private Bus bus;
+
+	
     
 }
