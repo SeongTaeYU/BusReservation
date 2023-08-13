@@ -30,7 +30,7 @@ public class BusServiceImpl implements BusService{
 	 */
     @Override
     public Bus createBus(BusDTO busDto) {
-        // BusDao를 사용하여 데이터베이스에 버스 생성 로직 수행
+        // 데이터베이스에 버스 생성 로직 수행
     	Bus bus = dtoToEntity(busDto);
         return busRepository.save(bus);
     }
@@ -40,7 +40,7 @@ public class BusServiceImpl implements BusService{
      */
     @Override
     public List<BusDTO> getBusList() {
-        // BusDao를 사용하여 데이터베이스로부터 모든 버스 정보 조회 로직 수행
+        // 데이터베이스로부터 모든 버스 정보 조회 로직 수행
     	List<Bus> busList = busRepository.findAll();
     	List<BusDTO> busDTOList = busList.stream()
     								  .map(entity -> entityToDto(entity))
@@ -53,7 +53,7 @@ public class BusServiceImpl implements BusService{
      */
     @Override
     public BusDTO getBusByNo(Integer busNo) {
-    	// BusDao를 사용하여 데이터베이스로부터 버스 정보 조회 로직 수행
+    	// 데이터베이스로부터 버스 정보 조회 로직 수행
     	Optional<Bus> bus = busRepository.findById(busNo);
     	@SuppressWarnings("unused")
 		BusDTO busDTO = null;
@@ -68,7 +68,7 @@ public class BusServiceImpl implements BusService{
      */
     @Override
     public Bus updateBus(BusDTO busDTO) {
-        // BusDao를 사용하여 데이터베이스에서 버스 업데이트 로직 수행
+        // 데이터베이스에서 버스 업데이트 로직 수행
     	Optional<Bus> data = busRepository.findById(busDTO.getBusNo());
     	if(data.isPresent()) {
     		Bus targetEntity = data.get();
@@ -86,7 +86,7 @@ public class BusServiceImpl implements BusService{
      */
     @Override
     public Boolean deleteBus(Integer busNo) {
-        // BusDao를 사용하여 데이터베이스에서 버스 삭제 로직 수행
+        // 데이터베이스에서 버스 삭제 로직 수행
     	Optional<Bus> data = busRepository.findById(busNo);
     	if(data.isPresent()) {
     		busRepository.delete(data.get());

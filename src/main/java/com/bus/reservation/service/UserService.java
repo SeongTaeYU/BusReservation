@@ -6,14 +6,16 @@ import com.bus.reservation.dto.UserDTO;
 import com.bus.reservation.entity.User;
 
 public interface UserService {
-    User createUser(UserDTO userDTO);			// 사용자 생성
-    List<UserDTO> getUserList();				// 사용자 리스트
-    UserDTO getUserByNo(Integer userNo);		// 사용자 한 명 가져오는 함수(상세보기)
-    User updateUser(UserDTO userDTO);			// 사용자 수정하는 함수
-    Boolean deleteUser(Integer userNo);			// 사용자 삭제하는 함수
+    User createUser(UserDTO userDTO);				// 사용자 생성
+    List<UserDTO> getUserList();					// 사용자 리스트
+    UserDTO getUserByNo(Integer userNo);			// 사용자 한 명 가져오는 함수(상세보기)
+    User updateUser(UserDTO userDTO);				// 사용자 수정하는 함수
+    Boolean deleteUser(Integer userNo);				// 사용자 삭제하는 함수
     
-    User login(UserDTO userDTO);				// 사용자 로그인
-    Boolean idExist(String userId);				// 사용자 로그인
+    User login(UserDTO userDTO);					// 사용자 로그인
+    Boolean idExist(String userId);					// 사용자 로그인
+    
+    List<UserDTO> getUserListByNo(Integer userNo);	// Mypage userList 함수
     
     /*
      * DTO --> Entity 전환을 위한 default 메소드
