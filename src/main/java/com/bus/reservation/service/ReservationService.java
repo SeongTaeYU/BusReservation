@@ -11,11 +11,11 @@ import com.bus.reservation.entity.Seat;
 
 
 public interface ReservationService {
-	Reservation createReservation(Reservation reservation);			   // 예약 생성
-	List<Reservation> getReservationList();	   						   // 예약 리스트
-	Reservation getReservationById(Integer reservationId);			   // 예약 한 개 가져오는 함수(상세보기)
-    Reservation updateReservation(Reservation reservation);			   // 예약 수정 함수
-    Boolean deleteReservation(Integer reservationId);	 	 	   	   // 예약 삭제 함수
+	Reservation createReservation(ReservationDTO reservationDTO);			   // 예약 생성
+	List<ReservationDTO> getReservationList();	   						   // 예약 리스트
+	ReservationDTO getReservationByNo(Integer reservationNo);			   // 예약 한 개 가져오는 함수(상세보기)
+    Reservation updateReservation(ReservationDTO reservationDTO);			   // 예약 수정 함수
+    Boolean deleteReservation(Integer reservationNo);	 	 	   	   // 예약 삭제 함수
     
     /*
      * DTO --> Entity 전환을 위한 default 메소드

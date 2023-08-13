@@ -1,75 +1,128 @@
 package com.bus.reservation.service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
-import com.javalab.reservation.dao.BusDao;
-import com.javalab.reservation.dao.ReservationDao;
-import com.javalab.reservation.dao.SeatDao;
-import com.javalab.reservation.dao.UserDao;
-import com.javalab.reservation.vo.Reservation;
+import com.bus.reservation.dto.ReservationDTO;
+import com.bus.reservation.entity.Bus;
+import com.bus.reservation.entity.Reservation;
+import com.bus.reservation.entity.Route;
+import com.bus.reservation.entity.Seat;
+import com.bus.reservation.entity.User;
+import com.bus.reservation.repository.BusRepository;
+import com.bus.reservation.repository.ReservationRepository;
+import com.bus.reservation.repository.RouteRepository;
+import com.bus.reservation.repository.SeatRepository;
+import com.bus.reservation.repository.UserRepository;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class ReservationServiceImpl implements ReservationService{
 	
-	// ReservationDao의 의존성 주입 (생성자 or @Autowired 등)
-	private final UserDao userDao;
-	private final BusDao busDao;
-	private final SeatDao seatDao;
-	
-	private final ReservationDao reservationDao;
+	// 의존성 주입 (생성자 or @Autowired 등)
+	private final ReservationRepository reservationRepository;
+	private final BusRepository busRepository;
+	private final RouteRepository routeRepository;
+	private final SeatRepository seatRepository;
+	private final UserRepository userRepository;
     
-    public ReservationServiceImpl(ReservationDao reservationDao, UserDao userDao, BusDao busDao, SeatDao seatDao) {
-        this.reservationDao = reservationDao;
-        this.userDao = userDao;
-        this.busDao = busDao;
-        this.seatDao = seatDao;
-    }
+	/**
+	 * ----------------------------------
+	 * 			C / R / U / D
+	 * ----------------------------------
+	 */
     
     /*
      * 예약 생성
      */
     @Override
-    public Reservation createReservation(Reservation reservation) {
-        // ReservationDao를 사용하여 데이터베이스에 예약 생성 로직 수행
-    	return reservationDao.createReservation(reservation);
-    }
+    public Reservation createReservation(ReservationDTO reservationDTO) {
+        // 데이터베이스에 예약 생성 로직 수행
+    	Reservation reservation = dtoToEntity(reservationDTO);
+    	return reservationRepository.save(reservation);
+    }//end createReservation
     
     /*
      * 예약 리스트
      */
     @Override
-    public List<Reservation> getReservationList() {
-    	// ReservationDao를 사용하여 데이터베이스로부터 모든 예약 정보 조회 로직 수행
-    	return reservationDao.getReservationList();
-    }
+    public List<ReservationDTO> getReservationList() {
+    	// 데이터베이스로부터 모든 예약 정보 조회 로직 수행
+    	List<Reservation> reservationList = reservationRepository.findAll();
+    	List<ReservationDTO> reservationDTOList = reservationList.stream()
+    															 .map(entity -> entityToDto(entity))
+    															 .collect(Collectors.toList());
+    	return reservationDTOList;
+    }//end getReservationList
+    
+    
     /*
      * 예약 한 개 가져오는 함수(상세보기)
      */
     @Override
-    public Reservation getReservationById(Integer reservationId) {
-        // ReservationDao를 사용하여 데이터베이스로부터 예약 정보 조회 로직 수행
-        return reservationDao.getReservationById(reservationId);
-    }
+    public ReservationDTO getReservationByNo(Integer reservationNo) {
+        // 데이터베이스로부터 예약 정보 조회 로직 수행
+    	Optional<Reservation> reservation = reservationRepository.findById(reservationNo);
+    	@SuppressWarnings("unused")
+		ReservationDTO reservationDTO = null;
+    	if(reservation.isPresent()) {
+    		reservationDTO = entityToDto(reservation.get());
+    	}
+        return reservation.isPresent() ? entityToDto(reservation.get()) : null;
+    }//end getReservationByNo
     
     /*
      * 예약 수정
      */
     @Override
-    public Reservation updateReservation(Reservation reservationo) {
-        // ReservationDao를 사용하여 데이터베이스에서 예약 업데이트 로직 수행
-        return reservationDao.updateReservation(reservationo);
+    public Reservation updateReservation(ReservationDTO reservationoDTO) {
+        // 데이터베이스에서 예약 업데이트 로직 수행
+    	Optional<Reservation> data = reservationRepository.findById(reservationoDTO.getReservationNo());
+    	if(data.isPresent()) {
+    		Reservation targetEntity = data.get();
+    		targetEntity.setReservationTime(reservationoDTO.getReservationTime());
+    		
+    		Bus bus = busRepository.findById(reservationoDTO.getBusNo())
+    														.orElseThrow(() -> new RuntimeException("버스 정보가 존재하지 않습니다."));
+    		
+    		Route route = routeRepository.findById(reservationoDTO.getRouteNo())
+    															  .orElseThrow(() -> new RuntimeException("루트 정보가 존재하지 않습니다."));
+    		
+    		Seat seat = seatRepository.findById(reservationoDTO.getSeatNo())
+    														   .orElseThrow(() -> new RuntimeException("좌석 정보가 존재하지 않습니다.")); 
+    		
+    		User user = userRepository.findById(reservationoDTO.getUserNo())
+    														   .orElseThrow(() -> new RuntimeException("회원 정보가 존재하지 않습니다."));
+    		
+    		targetEntity.setBus(bus);
+    		targetEntity.setRoute(route);
+    		targetEntity.setSeat(seat);
+    		targetEntity.setUser(user);
+    		
+    		return reservationRepository.save(targetEntity);
+    	}
+    	
+        return null;
     }
     
     /*
      * 예약 삭제
      */
     @Override
-    public Boolean deleteReservation(Integer reservationId) {
-        // ReservationDao를 사용하여 데이터베이스에서 예약 삭제 로직 수행
-        return reservationDao.deleteReservation(reservationId);
-    }
+    public Boolean deleteReservation(Integer reservationNo) {
+        // 데이터베이스에서 예약 삭제 로직 수행
+    	Optional<Reservation> data = reservationRepository.findById(reservationNo);
+    	if(data.isPresent()) {
+    		reservationRepository.delete(data.get());
+    		return true;
+    	}
+        return false;
+    }//end deleteReservation
     
     /*
     @Override
@@ -83,4 +136,5 @@ public class ReservationServiceImpl implements ReservationService{
                 .collect(Collectors.toList());
     }
     */
-}
+    
+}//end Class ReservationServiceImpl
