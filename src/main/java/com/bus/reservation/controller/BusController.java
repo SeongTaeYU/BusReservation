@@ -5,7 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,27 +16,36 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.javalab.reservation.service.BusService;
-import com.javalab.reservation.vo.Bus;
+import com.bus.reservation.dto.BusDTO;
+import com.bus.reservation.entity.User;
+import com.bus.reservation.service.BusService;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping("/bus")
+@RequiredArgsConstructor
 @Slf4j
 public class BusController {
 	
-	@Autowired
-	private BusService busService;
+	private final BusService busService;
 	
 	/*
 	 * 모든 버스 목록 조회
 	 */
 	@GetMapping("/busList")
-	public String getBusList(@ModelAttribute("bus") BusDTO bus,
-							Model model) {
+	public String getBusList(Model model,
+							@RequestParam("busNo") Integer busNo,
+							@ModelAttribute("busDTO") BusDTO busDTO,
+							HttpSession session) {
+		User user = (User) session.getAttribute("user");
+		if(user == null) {
+			return "redirect:/user/login";
+		}//end if문
+		
 		List<BusDTO> busList = busService.getBusList();
-		busList.sort(Comparator.comparing(BusDTO::getBusId));
+		busList.sort(Comparator.comparing(BusDTO::getBusNo).reversed());
 		
 		model.addAttribute("busList", busList);
 		
