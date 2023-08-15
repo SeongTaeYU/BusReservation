@@ -66,13 +66,11 @@ public class SeatController {
     	}//end if문
     	
         SeatDTO seat = seatService.getSeatByNo(seatNo);
-        if (seat != null) {
-            model.addAttribute("seat", seat);
-            return "seat/seatView";
-        } else {
-            // 좌석이 없을 경우에 대한 처리 (예: 오류 페이지)
-        	return "redirect:/error";
-        }//end else
+        
+        model.addAttribute("seat", seat);
+        
+        return "seat/seatView";
+
     }//end getSeatByNo
 	
     /*
@@ -91,7 +89,7 @@ public class SeatController {
         model.addAttribute("seat", new Seat());
         
         return "seat/seatCreate";
-    }//end seatCreate
+    }//end createSeat
 
     /*
      *  좌석 생성 처리
