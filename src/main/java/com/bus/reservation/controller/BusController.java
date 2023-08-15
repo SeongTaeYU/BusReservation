@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -93,7 +94,7 @@ public class BusController {
 	 */
 	@PostMapping("/busCreate")
 	public String createBus(Model model,
-							@ModelAttribute("busDTO") BusDTO bus,
+							@ModelAttribute("busDTO") BusDTO busDTO,
 							BindingResult bindingResult,
 							HttpSession session) {
 		User user = (User) session.getAttribute("user");
@@ -101,8 +102,24 @@ public class BusController {
 			return "redirect:/user/login";
 		}//end if문
 		
+		// 검증시 오류 있으면 create Form 이동
+		if(bindingResult.hasErrors()) {
+			
+			//Log field erros
+			List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+			
+			for (FieldError error : fieldErrors) {
+				log.error(error.getField() + " " + error.getDefaultMessage());
+			}//end for 문
+			
+			model.addAttribute("bus", busDTO);
+			
+			return "bus/busCreate";
+		}//end if문
+		
+		
 		// 버스 등록(저장)
-		BusDTO result = busService.createBus(bus);
+		busService.createBus(busDTO);
 		
 		// 저장후 목록 출력 컨트롤러 호출, redirect하면 busList 화면의 주소창이 변경됨.
 		return "redirect:/bus/busList";
@@ -112,10 +129,19 @@ public class BusController {
 	 * 버스 수정폼을 보여주는 메소드
 	 */
 	@GetMapping("/busUpdate")
-	public String updateBus(Integer busId, Model model) {
+	public String updateBus(@RequestParam Integer busNo,
+							@ModelAttribute("busDTO") BusDTO busDTO,
+							BindingResult bindingResult,
+							HttpSession session,
+							Model model) {
+		
+		User user = (User) session.getAttribute("user");
+		if(user == null) {
+			return "redirect:/user/login";
+		}//end if문
 		
 		Map<String,Object> busVo = new HashMap<>();
-		BusDTO bus = busService.getBusById(busId);
+		BusDTO bus = busService.getBusByNo(busNo);
 		busVo.put("bus", bus);
 		
 		model.addAttribute("busVo",busVo);
@@ -128,7 +154,7 @@ public class BusController {
 	 */
 	@PostMapping("/busUpdate")
 	public String updateBus(Model model, BindingResult bindingResult,
-							@ModelAttribute("busDTO") BusDTO bus,
+							@ModelAttribute("busDTO") BusDTO busDTO,
 							HttpSession session) {
 		
 		User user = (User) session.getAttribute("user");
@@ -137,11 +163,24 @@ public class BusController {
 		}//end if문
 		
 		// 검증시 오류
+		if(bindingResult.hasErrors()) {
+			//Log field errors
+			List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+			
+			for(FieldError error : fieldErrors) {
+				log.error(error.getField() + " " + error.getDefaultMessage());
+			}//end for문
+			
+			busDTO = busService.getBusByNo(busDTO.getBusNo());
+			
+			model.addAttribute("bus", busDTO);
+			
+			return "bus/busUpdate";
+		}//end if문
 		
+		busService.updateBus(busDTO);
 		
-		busService.updateBus(bus);
-		
-		return "redirect:/bus/busView?busNo=" + bus.getBusNo();
+		return "redirect:/bus/busView?busNo=" + busDTO.getBusNo();
 	}//end updateBus
 	
 	/*
@@ -153,7 +192,6 @@ public class BusController {
 							Model model) {
 		
 		User user = (User) session.getAttribute("user");
-		
 		if(user == null) {
 			return "redirect:/user/login";
 		}//end if문
