@@ -130,7 +130,18 @@ public class UserServiceImpl implements UserService{
     	}else {
     		return false;
     	}
-    }//end idExist
+    }
+    
+    /*
+     *  Mypage userList 함수
+     */
+	@Override
+	public List<UserDTO> getUserListByNo(Integer userNo) {
+		List<User> userByNo = userRepository.getUserByNo(userNo);
+		List<UserDTO> userDTOList = userByNo.stream()
+											.map(entity -> entityToDto(entity)).collect(Collectors.toList());
+		return userDTOList;
+	}//end idExist
     
     
 }//end Class UserServiceImpl 
