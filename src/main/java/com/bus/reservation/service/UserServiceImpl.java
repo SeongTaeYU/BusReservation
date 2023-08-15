@@ -133,7 +133,7 @@ public class UserServiceImpl implements UserService{
     }
     
     /*
-     *  Mypage userList 함수
+     *  Mypage userListByNo 함수
      */
 	@Override
 	public List<UserDTO> getUserListByNo(Integer userNo) {
