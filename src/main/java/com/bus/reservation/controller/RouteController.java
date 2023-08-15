@@ -48,7 +48,7 @@ public class RouteController {
     	}//end if문
     	
         List<RouteDTO> routeList = routeService.getRouteList();
-        model.addAttribute("routes", routeList);
+        model.addAttribute("routeList", routeList);
         
         return "route/routeList";
     }//end getRouteList
@@ -105,15 +105,15 @@ public class RouteController {
     	
     	// 검증시 오류가 있으면 createFrom 이동
     	if(bindingResult.hasErrors()) {
-    	List<FieldError> fieldErrors = bindingResult.getFieldErrors();
-    	
-    	for (FieldError error : fieldErrors) {
-    		log.error(error.getField() + " " + error.getDefaultMessage());
-    	}//end for문
-    	
-        model.addAttribute("route", routeDTO);
-        
-        return "route/routeCreate";
+	    	List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+	    	
+	    	for (FieldError error : fieldErrors) {
+	    		log.error(error.getField() + " " + error.getDefaultMessage());
+	    	}//end for문
+	    	
+	        model.addAttribute("route", routeDTO);
+	        
+	        return "route/routeCreate";
     	}//end if문
     	
     	routeService.createRoute(routeDTO);
@@ -155,7 +155,7 @@ public class RouteController {
     @PostMapping("/routeUpdate")
     public String updateRoute(Model model, BindingResult bindingResult,
     						  @RequestParam Integer routeNo,
-    						  @ModelAttribute ("routeDTO") RouteDTO routeDTO) {
+    						  @ModelAttribute("routeDTO") RouteDTO routeDTO) {
         
     	Map<String, Object> routeVo = new HashMap<>();
     	RouteDTO route = routeService.getRouteByNo(routeNo);
