@@ -43,12 +43,12 @@ public class BusController {
 							@ModelAttribute("busDTO") BusDTO busDTO,
 							HttpSession session) {
 		User user = (User) session.getAttribute("user");
-		if(user == null) {
+		if (user == null) {
 			return "redirect:/user/login";
 		}//end if문
 		
 		List<BusDTO> busList = busService.getBusList();
-		busList.sort(Comparator.comparing(BusDTO::getBusNo).reversed());
+		//busList.sort(Comparator.comparing(BusDTO::getBusNo).reversed());
 		
 		model.addAttribute("busList", busList);
 		
@@ -59,7 +59,7 @@ public class BusController {
 	 * 버스 정보 보기(상세보기)
 	 */
 	@GetMapping("busView")
-	public String getBusById(@RequestParam("busId") Integer busNo,
+	public String getBusByNo(@RequestParam("busNo") Integer busNo,
 							HttpSession session,
 							Model model) {
 		
