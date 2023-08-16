@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>고속 버스 예매</title>
+    <!-- Include your CSS and scripts here -->
+</head>
+<body>
+    <!-- Your navigation bar code -->
+
+    <!-- Alerts -->
+    <div th:if="${msg == 'reserveSuccess'}" class="alert alert-warning alert-dismissible fade show" role="alert">
+        결제가 완료되었습니다!
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <!-- Other alert blocks -->
+
+    <!-- Pricing Header -->
+    <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
+        <h1 class="display-4">고속 버스 예매</h1>
+        <p class="lead">좌석 예매</p>
+    </div>
+
+    <!-- Container -->
+    <div class="container">
+        <!-- Reservation Form -->
+        <form th:action="@{/home_section}" method="post">
+            <!-- Hidden input fields and card deck -->
+
+            <!-- Departure Card -->
+            <div class="card mb-4 shadow-sm">
+                <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">출발지</h4>
+                </div>
+                <div class="card-body">
+                    <!-- Departure location buttons -->
+                </div>
+            </div>
+            <!-- Arrival Card and other elements -->
+
+        </form>
+
+        <!-- Footer -->
+        <footer class="pt-4 border-top">
+            <div class="pricing-header px-3 py-3 pb-md-4 mx-auto text-center">
+                <p class="lead">좌석 검색</p>
+            </div>
+
+            <div class="row text-center d-flex justify-content-center">
+                <!-- Search form for timetable -->
+            </div>
+
+            <div class="row text-center d-flex justify-content-center">
+                <!-- Timetable table -->
+            </div>
+
+            <div class="row d-flex justify-content-center">
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        <!-- Pagination links -->
+                    </ul>
+                </nav>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Include your JavaScript files if needed -->
+</body>
+</html>
