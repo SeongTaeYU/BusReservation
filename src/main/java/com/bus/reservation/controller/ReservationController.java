@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bus.reservation.dto.ReservationDTO;
-import com.bus.reservation.dto.RouteDTO;
 import com.bus.reservation.entity.Reservation;
 import com.bus.reservation.entity.User;
 import com.bus.reservation.service.ReservationService;

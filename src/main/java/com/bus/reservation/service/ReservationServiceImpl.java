@@ -126,7 +126,6 @@ public class ReservationServiceImpl implements ReservationService{
     
     /*
      * 예약 버스 좌석 한 개  가져오는 함수(상세보기)
-     * 
     @Override
     public List<Reservation> getReservationsByUserId(int userId) {
         // ReservationDao를 사용하여 데이터베이스로부터 해당 사용자의 예약 정보 조회 로직 수행
@@ -137,6 +136,6 @@ public class ReservationServiceImpl implements ReservationService{
                 .map(this::convertToDto)
                 .collect(Collectors.toList());
     }
-    */
+     */ 
     
 }//end Class ReservationServiceImpl
