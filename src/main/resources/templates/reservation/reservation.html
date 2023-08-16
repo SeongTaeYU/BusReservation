@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>버스 예약</title>
+    <!-- Include header.jsp -->
+    <th:block th:include="../include/header.html"></th:block>
+</head>
+<body>
+    <!-- Include nav.jsp -->
+    <th:block th:include="../include/nav.html"></th:block>
+    
+    <div class="container text-center">
+        <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto">
+            <h1>예약 결제</h1>
+        </div>
+        <div class="card-deck mb-3 text-center">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">출발지</h4>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled mt-3 mb-4">
+                        <li class="mb-2">
+                            <strong th:text="${map.startName}"></strong>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <h2>&gt;&gt;</h2>
+            <div class="card mb-4 shadow-sm">
+                <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">도착지</h4>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled mt-3 mb-4">
+                        <li class="mb-2">
+                            <strong th:text="${map.endName}"></strong>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <h2>&gt;&gt;</h2>
+            <div class="card mb-4 shadow-sm">
+                <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">시간</h4>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled mt-3 mb-4">
+                        <li class="mb-2">
+                            <strong th:text="'총 소요 시간: 약 ' + ${map.section.getTime()} + '분'"></strong>
+                        </li>
+                        <li class="mb-2">
+                            <strong th:text="'출발 시간: ' + ${#strings.substring(map.startTime, 0, 4)} + '년 ' + ${#strings.substring(map.startTime, 4, 6)} + '월 ' + ${#strings.substring(map.startTime, 6, 8)} + '일 ' + ${#strings.substring(map.startTime, 8, 10)} + '시 ' + ${#strings.substring(map.startTime, 10, 12)} + '분'"></strong>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <form name="reserve_form" method="post" th:action="@{/appointment/reserve}" th:object="${map}">
+            <input type="hidden" th:field="*{seqNo}" />
+            <input type="hidden" th:field="*{section.sectionNo}" />
+            <input type="hidden" th:field="*{id}" th:value="${sessionScope.userId}" />
+            <input type="hidden" th:field="*{startTime}" />
+            <button type="submit" class="btn btn-primary mt-2">결제하기</button>
+        </form>
+    </div>
+</body>
+</html>
