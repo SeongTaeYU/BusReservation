@@ -7,14 +7,100 @@
     <meta name="robots" content="noindex, nofollow">
     <title>안산 고속터미널</title>
 </head>
-<body>
-    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
-        <h5 class="my-0 mr-md-auto font-weight-normal"><a class="p-2 text-dark" th:href="/timetable/list">안산 고속</a></h5>
-        <nav class="my-2 my-md-0 mr-md-3">
-            <!-- 로그인 여부에 따라 링크 표시 -->
-            <a class="p-2 text-dark" th:href="/user/signup_view">회원가입</a>
-            <a class="p-2 btn btn-outline-primary" th:href="/user/login_view">로그인</a>
-        </nav>
+<body data-aos-easing="ease" data-aos-duration="1500" data-aos-delay="0">
+	<!-- 상단 시작 { -->
+	<div class="all_menu">
+		<div class="in">
+			<ul>
+			  <li>
+			  	<a href="#" target="_self">터미널 소개</a>
+			  	<ul class="all_2dep">
+			  		<li>
+			  		   <a href="#" target="_self">터미널 소개</a>
+			  		</li>
+			  		<li>
+			  		   <a href="#" target="_self">운수사 소개</a>
+			  		</li>
+			  		<li>
+			  		   <a href="#" target="_self">편의시설 안내</a>
+			  		</li>
+			  		<li>
+			  		   <a href="#" target="_self">찾아오시는 길</a>
+			  		</li>
+			  	</ul>
+			  </li>
+			  <li>
+			  	<a href="#" target="_self">이용안내</a>
+			  	<ul class="all_2dep">
+			  		<li>
+			  			<a href="#" target="_self">이용안내</a>
+			  		</li>
+			  		<li>
+			  			<a href="#" target="_self">환불 및 할인안내</a>
+			  		</li>
+			  	</ul>
+			  </li>
+			  <li>
+			  	<a href="#" target="_self">인터넷예약</a>
+			  	<ul class="all_2dep">
+			  		<li>
+			  		  <a href="#" target="_self">고속버스 예약</a>
+			  		</li>
+			  		<li>
+			  		  <a href="#" target="_self">시외버스 예약</a>
+			  		</li>
+			  	</ul>
+			  </li>
+			  <li>
+			  	<a href="#" target="_self">커뮤니티</a>
+			  	<ul class="all_2dep">
+			  		<li>
+			  			<a href="#" target="_self">공지사항</a>
+			  		</li>
+			  		<li>
+			  			<a href="#" target="_self">고객소리</a>
+			  		</li>
+			  		<li>
+			  			<a href="#" target="_self">자주하는 질문</a>
+			  		</li>
+			  	</ul>
+			  </li>
+			</ul>
+			
+			<button>
+				<img src="" alt="메인화면">
+			</button>
+		</div>
+	</div>
+	<!-- 화물 접수 팝업 -->
+    <div id="hd" style="z-index: 1000;">
+        <div id="skip_to_container">
+        	<a th:href="#container">메인 바로가기</a>
+        </div>
     </div>
+    <!-- 팝업레이어 시작 {-->
+    <div id="hd_pop">
+    	<h2>팝업레이어 알림</h2>
+    	<span class="sound_only">파업레이어 알림이 없습니다.</span>
+    </div>
+    <script>
+    	$(function(){
+    		$(".hd_pops_reject").click(function(){
+    			var id = $(this).attr('class').split(' ');
+    			var ch_name = id[1];
+    			var exp_time = parseInt(id[2]);
+    			$("#"+id[1]).css("display","none");
+    			set_cookie(ck_name, 1, exp_time, g5_cookie_domain);
+    		});
+    		$('.hd_pops_close').click(function() {
+    			var idb = $(this).attr('class').cplit(' ');
+    			$('#'+idb[1]).css('display','none');
+    		});
+    		$("#hd").css("z-index",1000);
+    	});
+    </script>
+    <!-- 팝업레이어 끝 }-->
+	
+    <!-- 상단 끝 } -->    
 </body>
 </html>
