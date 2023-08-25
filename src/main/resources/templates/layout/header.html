@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thmeleaf.org">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device=width, initial-scale=1.0">
+
+	<script src='https://kit.fontawesome.com/a076d05399.js'></script>
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Mochiy+Pop+One&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<header>
+	<div class="header_wrap">
+		<div class="header_top_inner">
+			<div class="menu_topwrap">
+				<ul>
+					<th:if test="${session.user != null}" id="logoutLink">
+						<a th:href="@{/user/logout}" class="logout" style="cursor:pointer;">로그아웃</a>
+						<a th:href="@{/user/mypage}" class="mypage" style="cursor:pointer;">마이페이지</a>
+					</th:if>
+					<th:if test="${session.user == null}" id="loginLink">
+						<a th:href="@{/user/login}" class="login">로그인</a>
+					</th:if>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="header_bottom_inner">
+		<div class="header_bottom_menu">
+			<div class="menu_wrap_Left">
+				<img alt="" src="/src/main/resources/static/images/index/index_2.png" style="width: 200px; padding-top: 18px;" OnClick="location.href = '/ '" style="cursor:pointer;">
+			</div>
+			
+			<div class="menu_wrap">
+				<div class="menu1" OnClick="location.href = '$@{reservation/reservationMain}'" style="cursor:pointer;">버스예약</div>
+				
+			</div>
+
+			<div class="menu_wrap_Right">
+				<div class="r1">
+					<i class="fas fa-comment-dots" sytle="font-size: 30px" onclick="window.open('')"></i>
+				</div>
+			</div>
+
+		</div>
+	</div>
+</header>
+</html>
