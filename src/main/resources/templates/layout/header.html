@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thmeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device=width, initial-scale=1.0">
@@ -40,11 +40,43 @@
 
 			<div class="menu_wrap_Right">
 				<div class="r1">
-					<i class="fas fa-comment-dots" sytle="font-size: 30px" onclick="window.open('')"></i>
+					<i class="fas fa-comment-dots" style="font-size: 30px" onclick="window.open('/chat2','아론',width='470, height=800');"></i>
+				</div>
+				
+				<div class="r1">
+					<i class="material-icons" onclick="location.href='/mypage/main'" style="font-size:33px; padding-top: 20px; cursor:pointer;">person_pin</i>
+				</div>
+				
+				<div class="r1 tooltip1">
+					<i class="fas fa-search" id="sbtn" style='font-size:28px; padding-left:3px;'></i>
+					<div class="tooltiptext1">
+						<div class="search_container">
+							<form action="/indexSearch" id="frm2">
+								<input class="search_input" type="text" placeholder="Search" name="search">
+								<i class="fas fa-search" id="ssbtn"></i>
+							</form>
+						</div>
+					</div>
 				</div>
 			</div>
-
 		</div>
 	</div>
+	
+	<script>
+		//Replace condition with JavaScript conditions if needed
+		document.querySelector('#sbtn').addEventListener('click', function() {
+			document.querySelector('.tooltiptext1').style.display = 'inline-block';
+		});
+		
+		document.querySelector('#ssbtn').addEventListener('click', function() {
+			document.querySelector('frm2').submit();
+		});
+		
+		document.querySelector('.mp').addEventListener('click', function() {
+			alert('로그인 해주세요.');
+			location.href = "/user/login";
+		})
+	</script>
+	
 </header>
 </html>
