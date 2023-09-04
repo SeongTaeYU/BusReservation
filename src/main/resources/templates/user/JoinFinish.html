@@ -7,7 +7,8 @@
 
 </head>
 <body>
-<import url="../layout/header.html"></import>
+<div th:replace="~{layout/header::header}"></div>
+<div th:replace="~{layout/searchList::search}"></div>
 <div class="container" id="container">
     <div class="mem_wrap">
         <div class="indicator_wrap">
@@ -36,7 +37,7 @@
                     <tbody>
                         <tr>
                             <th scope="row">회원번호</th>
-                            <td class="taL" id=""memberNum>${userDTO.userNo}</td>
+                            <td class="taL" id="memberNum">${userDTO.userNo}</td>
                         </tr>
                         <tr>
                             <th scope="row">이메일</th>
@@ -51,7 +52,7 @@
             </div>
             <div class="right">
                 <div class="user_barcode_wrap">
-                    
+                
                 </div>
             </div>
         </div>
