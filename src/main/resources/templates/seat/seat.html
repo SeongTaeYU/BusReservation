@@ -83,7 +83,14 @@
 							<th:case test="${i eq 2}">
 								<th:set var="c" value="E" />
 							</th:case>
-							
+						</th:switch>
+						<th:switch>
+							<th:case test="${(i-1) * 32 + j eq 1}">
+								<div class="area">D</div>
+							</th:case>
+							<th:case test="${(i-1) * 32 + j eq 33}">
+								<div class="area">E</div>
+							</th:case>
 						</th:switch>
 						</th:each>
 						</th:each>
