@@ -40,8 +40,38 @@
 		</tr>
 		</th:if>
 		</table>
+		<p><button type="button" id="btn"><span>선택 완료</span></button></p>
 	</div>
 </div>
+			<input type="text" id="depFNum" th:value="${depFNum}" name="depFNum">
+			<div class="bus">
+				<div class="depBus">
+					<div class="seat1">
+						<th:each begin="1" end="3" var="i">
+						<th:each begin="1" end="31" var="j">
+							<th:switch test="${i eq 1}">
+								<th:set var="c" value="A" />							
+							</th:switch>
+							<th:switch test="${i eq 2}">
+								<th:set var="c" value="B" />							
+							</th:switch>
+							<th:switch test="${i eq 3}">
+								<th:set var="c" value="C" />							
+							</th:switch>
+							<th:switch>
+								<th:case test="${(i-1) * 31 + j eq 1}">
+									<div class="area"></div>
+								</th:case>
+								<th:case test="${(i-1) * 31 + j eq 32}">
+									<div class="area"></div>
+								</th:case>
+							</th:switch>
+							<label for="${depFNum}${c}${j}" class="bookable" title="${c}${j}">
+								<input type="checkbox" id="${depFNum}${c}${j}" class="seat" title="${c}${j}">
+							</label>
+					</div>
+				</div>
+			</div>
 </form>
 </body>
 </html>
