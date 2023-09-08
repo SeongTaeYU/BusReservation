@@ -69,6 +69,25 @@
 							<label for="${depFNum}${c}${j}" class="bookable" title="${c}${j}">
 								<input type="checkbox" id="${depFNum}${c}${j}" class="seat" title="${c}${j}">
 							</label>
+						</th:each>
+						<br>
+					</th:each>
+					</div>
+					<div class="seat2">
+						<th:each begin="1" end="3" var="3" var="i">
+						<th:each begin="1" end="3" var="32" var="j">
+						<th:switch>
+							<th:case test="${i eq 1}">
+								<th:set var="c" value="D" />
+							</th:case>
+							<th:case test="${i eq 2}">
+								<th:set var="c" value="E" />
+							</th:case>
+							
+						</th:switch>
+						</th:each>
+						</th:each>
+						
 					</div>
 				</div>
 			</div>
