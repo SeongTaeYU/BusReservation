@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<link href="../resources/static/css/layout/header.css" rel="stylesheet">
+<link href="../resources/static/css/layout/reset.css" rel="stylesheet">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<link href="" rel="stylesheet">
+<meta charset="UTF-8" http-equiv="Content-Type">
+<title>좌석 선택</title>
+</head>
+<body>
+<form action=".seat" id="frm" method="post">
+<div class="sidenav">
+	<div class="navText">좌석 선택</div>
+	<div class="navBody">
+		<div class="seatInfo">
+			<div class="seatInfo_bookSeat"><img alt="" src="../resources/static/images/seat/bookableSeat.png">선택가능 좌석</div>
+			<div class="seatInfo_bookingSeat"><img alt="" src="../resources/static/images/seat/bookingSeat.png">선택한 좌석</div>
+			<div class="seatInfo_bookedSeat"><img alt="" src="../resources/static/images/seat/bookedSeat.png">선택불가 좌석</div>
+		</div>
+		<table>
+		<tr>
+			<td>예매 번호</td>
+			<td><input type="text" id="bookingNum" th:value="${seat.seatNo}" name="bookingNum" readonly="readonly"></td>
+		</tr>
+		<tr>
+			<td>인원 수</td>
+			<td><input type="text" id="peolpe" th:value="${people}" name="people" readonly="readonly" style="width:10px">명</td>
+		</tr>
+		<tr>
+			<td>가는편 좌석</td>
+			<td><input type="text" id="depSeat" name="depSeat" readonly="readonly"></td>
+		</tr>
+		<th:if test="${kind eq 1}">
+		<tr>
+			<td>오는편 좌석</td>
+			<td><input type="text" id="bookingNum" th:value="${seat.seatNo}" name="bookingNum" readonly="readonly"></td>
+		</tr>
+		</th:if>
+		</table>
+	</div>
+</div>
+</form>
+</body>
+</html>

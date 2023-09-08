@@ -1,71 +1,48 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>고속 버스 예매</title>
-    <!-- Include your CSS and scripts here -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page</title>
 </head>
 <body>
-    <!-- Your navigation bar code -->
 
-    <!-- Alerts -->
-    <div th:if="${msg == 'reserveSuccess'}" class="alert alert-warning alert-dismissible fade show" role="alert">
-        결제가 완료되었습니다!
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    <!-- Other alert blocks -->
+    <h1>Welcome to the Main Page</h1>
 
-    <!-- Pricing Header -->
-    <div class="pricing-header px-3 py-3 pt-md-5 pb-md-4 mx-auto text-center">
-        <h1 class="display-4">고속 버스 예매</h1>
-        <p class="lead">좌석 예매</p>
+    <div class="reservationList">
+        <h3 class="reservationList-title">Reservation</h3>
+        <div class="none-reservation" id="noneReservation">
+        	<span>현재 예약이 없습니다.</span>
+        </div>
     </div>
 
-    <!-- Container -->
-    <div class="container">
-        <!-- Reservation Form -->
-        <form th:action="@{/home_section}" method="post">
-            <!-- Hidden input fields and card deck -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script th:inline="javascript">
+        // 예약 목록을 비동기적으로 로드하여 출력하는 함수
+        function loadReservationList() {
+            $.ajax({
+                url: "/reservation/reservationList", // 예약 목록을 가져오는 경로
+                type: "GET",
+                dataType: "json",
+                success: function (data) {
+                    var reservationListDiv = $("#reservationList");
+                    reservationListDiv.empty(); // 기존 내용 제거
+                    $.each(data, function (index, reservation) {
+                        reservationListDiv.append("<p>Reservation No: " + reservation.reservationNo + "</p>");
+                        // 추가 정보를 출력하고자 한다면 이곳에 더 작성할 수 있습니다.
+                    });
+                },
+                error: function (xhr, status, error) {
+                    console.error("Error fetching reservation data: " + error);
+                }
+            });
+        }
 
-            <!-- Departure Card -->
-            <div class="card mb-4 shadow-sm">
-                <div class="card-header">
-                    <h4 class="my-0 font-weight-normal">출발지</h4>
-                </div>
-                <div class="card-body">
-                    <!-- Departure location buttons -->
-                </div>
-            </div>
-            <!-- Arrival Card and other elements -->
-
-        </form>
-
-        <!-- Footer -->
-        <footer class="pt-4 border-top">
-            <div class="pricing-header px-3 py-3 pb-md-4 mx-auto text-center">
-                <p class="lead">좌석 검색</p>
-            </div>
-
-            <div class="row text-center d-flex justify-content-center">
-                <!-- Search form for timetable -->
-            </div>
-
-            <div class="row text-center d-flex justify-content-center">
-                <!-- Timetable table -->
-            </div>
-
-            <div class="row d-flex justify-content-center">
-                <nav aria-label="Page navigation example">
-                    <ul class="pagination">
-                        <!-- Pagination links -->
-                    </ul>
-                </nav>
-            </div>
-        </footer>
-    </div>
-
-    <!-- Include your JavaScript files if needed -->
+        // 페이지 로드 시 예약 목록을 불러옴
+        $(document).ready(function () {
+            loadReservationList();
+        });
+    </script>
 </body>
 </html>
